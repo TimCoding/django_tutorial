@@ -1,14 +1,18 @@
-from django.http  import HttpResponse
+from django.http  import Http404
+from django.shortcuts import render
 from .models import Type
 # Create your views here.
 
 def index(request):
     all_types = Type.objects.all()
-    html = ' '
-    for type in all_types:
-        url = "/plant/" + str(type.id) + "/"
-        html += '<a href="' + url + '">' + type.t_name + '</a><br>'
-    return HttpResponse(html)
+    context = {
+        'all_types': all_types,
+    }
+    return render(request, 'plant/index.html', context)
 
 def detail(request, plant_id):
-    return HttpResponse("<h2>Details for plant id: " + str(plant_id) + " </h2>")
+    try:
+        type = Type.objects.get(pk=plant_id)
+    except Type.DoesNotExist:
+        raise Http404("Album does not exist")
+    return render(request, 'plant/detail.html', {'type': type})
