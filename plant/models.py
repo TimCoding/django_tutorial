@@ -11,7 +11,7 @@ class Type(models.Model):
     def save(self, *args, **kwargs):
         super(Type, self).save(*args, **kwargs)
         if not self.slug:
-            self.slug = slugify(self.t_name) + "-" + str(self.id)
+            self.slug = str(self.id) + "-" + slugify(self.t_name)
             self.save()
 
     def __str__(self):
@@ -28,6 +28,6 @@ class Plant(models.Model):
     def save(self, *args, **kwargs):
         super(Plant, self).save(*args, **kwargs)
         if not self.slug:
-            self.slug = slugify(self.p_name) + "-" + str(self.id)
+            self.slug = str(self.id) + "-" + slugify(self.p_name)
             self.save()
 
