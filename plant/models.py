@@ -23,11 +23,14 @@ class Plant(models.Model):
     p_img = models.CharField(max_length=200)
     p_description = models.CharField(max_length=1000)
     p_quantity = models.IntegerField()
-    slug = models.SlugField(default='')
+    slug = models.SlugField(default='', blank=True)
 
     def save(self, *args, **kwargs):
         super(Plant, self).save(*args, **kwargs)
         if not self.slug:
             self.slug = str(self.id) + "-" + slugify(self.p_name)
             self.save()
+
+    def __str__(self):
+        return self.p_name
 
