@@ -10,9 +10,9 @@ def index(request):
     }
     return render(request, 'plant/index.html', context)
 
-def detail(request, plant_name):
+def detail(request, type_name):
     try:
-        type = Type.objects.get(t_name=plant_name)
+        type = Type.objects.get(t_name=type_name)
     except Type.DoesNotExist:
         raise Http404("Plant type does not exist")
     return render(request, 'plant/detail.html', {'type': type})

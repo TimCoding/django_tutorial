@@ -11,7 +11,7 @@ class Type(models.Model):
     def save(self, *args, **kwargs):
         super(Type, self).save(*args, **kwargs)
         if not self.slug:
-            self.slug = str(self.id) + "-" + slugify(self.t_name)
+            self.slug = slugify(self.t_name)
             self.save()
 
     def __str__(self):
