@@ -2,7 +2,7 @@
 <h1>Here are all the plant types</h1>
 <ul>
     {% for type in all_types%}
-    <li><a href='/plant/{{ type.slug }}'>{{ type.t_name }}</a></li>
+    <li><a href='/plant/{{ type.t_name }}'>{{ type.t_name }}</a></li>
     {% endfor %}
 </ul>
 {% else %}
