@@ -1,6 +1,6 @@
 from django.http  import Http404
 from django.shortcuts import render
-from .models import Type
+from .models import Type, Plant
 # Create your views here.
 
 def index(request):
@@ -23,3 +23,9 @@ def detail(request, type_name):
     }
     return render(request, 'plant/detail.html', context)
 
+def plant(request, plant_id):
+    try:
+        selected_plant = Plant.objects.get(pk=plant_id)
+    except Plant.DoesNotExist:
+        raise Http404("Plant does not exist")
+    return render(request, 'plant/plant.html', {'plant': selected_plant})
