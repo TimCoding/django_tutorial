@@ -1,1 +1,6 @@
-{{ type }}
+<h1>{{ type }}</h1>
+<ul>
+    {% for plant in plants %}
+    <li><a href='plant/{{ type }}/{{ plant.slug }}'>{{ plant.p_name }}</a></li>
+    {% endfor %}
+</ul>

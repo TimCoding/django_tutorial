@@ -15,4 +15,11 @@ def detail(request, type_name):
         type = Type.objects.get(t_name=type_name)
     except Type.DoesNotExist:
         raise Http404("Plant type does not exist")
-    return render(request, 'plant/detail.html', {'type': type})
+    #Assumption: If type exists then it must have a set of plants even if the set is empty
+    type_plants = type.plant_set.all()
+    context = {
+        'type': type,
+        'plants': type_plants,
+    }
+    return render(request, 'plant/detail.html', context)
+
