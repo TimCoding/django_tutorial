@@ -1,6 +1,8 @@
 from django.conf.urls import url
 from . import views
 
+app_name = 'plant'
+
 urlpatterns = [
     # /plant/
     url(r'^$', views.index, name='index'),
@@ -9,5 +11,5 @@ urlpatterns = [
     url(r'^(?P<type_name>[a-z]+)/$', views.detail, name='detail'),
 
     # /plant/type/1-tacos
-    url(r'^[a-z]+/(?P<plant_id>[0-9]+)-[a-z]+/$', views.plant, name='plant'),
+    url(r'^(?P<type>[a-z]+)/(?P<plant_id>[0-9]+)-(?P<slug>[a-z])+/$', views.plant, name='plant'),
 ]

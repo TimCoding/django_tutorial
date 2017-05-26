@@ -1,5 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.core.urlresolvers import reverse
 
 # Create your models here.
 class Type(models.Model):
@@ -28,9 +29,13 @@ class Plant(models.Model):
     def save(self, *args, **kwargs):
         super(Plant, self).save(*args, **kwargs)
         if not self.slug:
-            self.slug = str(self.id) + "-" + slugify(self.p_name)
+            self.slug = slugify(self.p_name)
             self.save()
 
     def __str__(self):
         return self.p_name
+
+    def get_absolute_url(self):
+        return reverse("plant:plant", kwargs = {'type': str(self.type), 'plant_id': str(self.id), 'slug': str(self.slug)})
+        #return reverse('plant:plant', kwargs{'taco': 'taco'})
 

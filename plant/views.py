@@ -23,7 +23,11 @@ def detail(request, type_name):
     }
     return render(request, 'plant/detail.html', context)
 
-def plant(request, plant_id):
+def plant(request, type, plant_id, slug):
+    try:
+        selected_type = Type.objects.get(t_name=type)
+    except Type.DoesNotExist:
+        raise Http404("Type does not exist")
     try:
         selected_plant = Plant.objects.get(pk=plant_id)
     except Plant.DoesNotExist:
