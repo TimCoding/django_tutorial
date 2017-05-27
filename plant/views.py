@@ -1,5 +1,5 @@
 from django.http  import Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Type, Plant
 # Create your views here.
 
@@ -24,12 +24,14 @@ def detail(request, type_name):
     return render(request, 'plant/detail.html', context)
 
 def plant(request, type, plant_id, slug):
-    try:
-        selected_type = Type.objects.get(t_name=type)
-    except Type.DoesNotExist:
-        raise Http404("Type does not exist")
-    try:
-        selected_plant = Plant.objects.get(pk=plant_id)
-    except Plant.DoesNotExist:
-        raise Http404("Plant does not exist")
+    # try:
+    #     selected_type = Type.objects.get(t_name=type)
+    # except Type.DoesNotExist:
+    #     raise Http404("Type does not exist")
+    # try:
+    #     selected_plant = Plant.objects.get(pk=plant_id)
+    # except Plant.DoesNotExist:
+    #     raise Http404("Plant does not exist")
+    selected_type = get_object_or_404(Type, t_name=type)
+    selected_plant = get_object_or_404(Plant, pk=plant_id)
     return render(request, 'plant/plant.html', {'plant': selected_plant})
