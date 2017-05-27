@@ -24,6 +24,7 @@ class Plant(models.Model):
     p_img = models.CharField(max_length=200)
     p_description = models.CharField(max_length=1000)
     p_quantity = models.IntegerField()
+    p_favorite = models.BooleanField(default=False)
     slug = models.SlugField(default='', blank=True)
 
     def save(self, *args, **kwargs):
@@ -38,4 +39,7 @@ class Plant(models.Model):
     def get_absolute_url(self):
         return reverse("plant:plant", kwargs = {'type': str(self.type), 'plant_id': str(self.id), 'slug': str(self.slug)})
         #return reverse('plant:plant', kwargs{'taco': 'taco'})
+    
+    def favorite_url(self):
+        return reverse("plant:favorite", kwargs = {'type': str(self.type), 'plant_id': str(self.id), 'slug': str(self.slug)})
 

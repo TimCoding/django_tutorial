@@ -12,4 +12,7 @@ urlpatterns = [
 
     # /plant/type/1-tacos
     url(r'^(?P<type>[a-z]+)/(?P<plant_id>[0-9]+)-(?P<slug>[a-z])+/$', views.plant, name='plant'),
+
+     # /plant/type/1-tacos/favorite
+    url(r'^(?P<type>[a-z]+)/(?P<plant_id>[0-9]+)-(?P<slug>[a-z])+/favorite$', views.favorite, name='favorite'),
 ]
