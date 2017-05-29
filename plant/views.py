@@ -1,14 +1,14 @@
 from django.shortcuts import render, get_object_or_404
+from django.views import generic
 from .models import Type, Plant
 # Create your views here.
 
-def index(request):
-    #Get all the types to display them in the field
-    all_types = Type.objects.all()
-    context = {
-        'all_types': all_types,
-    }
-    return render(request, 'plant/index.html', context)
+class TypeList(generic.ListView):
+    model = Type
+    #Name which will be used in your templates to retrieve objects
+    context_object_name = 'all_types'
+    #Name of your actual template
+    template_name = 'plant/index.html'
 
 def detail(request, type_name):
     type = get_object_or_404(Type, t_name = type_name)

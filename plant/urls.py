@@ -5,7 +5,7 @@ app_name = 'plant'
 
 urlpatterns = [
     # /plant/
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.TypeList.as_view(), name='index'),
     
     # /plant/perennials/
     url(r'^(?P<type_name>[a-z]+)/$', views.detail, name='detail'),
