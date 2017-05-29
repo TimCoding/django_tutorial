@@ -1,23 +1,29 @@
-<h1>{{ plant }}</h1>
-<img src="{{ plant.p_img }}">
-<h3>Description:</h3>
-<p>{{ plant.p_description }}</p>
-<h3>Quantity:</h3>
-<p>{{ plant.p_quantity }}</p>
+{% extends 'plant/base.html' %}
+{% block title %}Plant Details{% endblock %}
+{% block body %}
+<div class="container">
+    <h1>{{ plant }}</h1>
+    <img src="{{ plant.p_img }}">
+    <h3>Description:</h3>
+    <p>{{ plant.p_description }}</p>
+    <h3>Quantity:</h3>
+    <p>{{ plant.p_quantity }}</p>
 
-{% if error_message %}
-    <p><strong>{{ error_message }}</strong></p>
-{% endif %}
+    {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+    {% endif %}
 
-<form action="{{ plant.favorite_url }}" method="POST"> 
-    {% csrf_token %}
-    <input type="radio" id="plant_{{ plant.p_name }}" name="plant" value="{{ plant.id }}">
-    <label for="plant_{{ plant.p_name }}">
-        {{ plant.p_name }}
-        {% if plant.p_favorite %}
-            <p>Favorited</p>
-        {% endif %}
-    </label>
-    <br>
-    <input type="submit" value="Favorite">
-</form>
+    <form action="{{ plant.favorite_url }}" method="POST"> 
+        {% csrf_token %}
+        <input type="radio" id="plant_{{ plant.p_name }}" name="plant" value="{{ plant.id }}">
+        <label for="plant_{{ plant.p_name }}">
+            {{ plant.p_name }}
+            {% if plant.p_favorite %}
+                <p>Favorited</p>
+            {% endif %}
+        </label>
+        <br>
+        <input type="submit" value="Favorite">
+    </form>
+</div>
+{% endblock %}
