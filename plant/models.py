@@ -18,6 +18,9 @@ class Type(models.Model):
     def __str__(self):
         return self.t_name
 
+    def get_absolute_url(self):
+        return reverse("plant:detail", kwargs = {'slug': str(self.slug)})
+
 class Plant(models.Model):
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
     p_name = models.CharField(max_length=200)
@@ -37,9 +40,6 @@ class Plant(models.Model):
         return self.p_name
 
     def get_absolute_url(self):
-        return reverse("plant:plant", kwargs = {'type': str(self.type), 'plant_id': str(self.id), 'slug': str(self.slug)})
-        #return reverse('plant:plant', kwargs{'taco': 'taco'})
-    
-    def favorite_url(self):
-        return reverse("plant:favorite", kwargs = {'type': str(self.type), 'plant_id': str(self.id), 'slug': str(self.slug)})
+        return reverse("plant:plant", kwargs = {'type': str(self.type), 'pk': str(self.id), 'name': str(self.slug)})
+
 

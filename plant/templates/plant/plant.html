@@ -13,7 +13,7 @@
         <p><strong>{{ error_message }}</strong></p>
     {% endif %}
 
-    <form action="{{ plant.favorite_url }}" method="POST"> 
+    <!--<form action="{{ plant.favorite_url }}" method="POST"> 
         {% csrf_token %}
         <input type="radio" id="plant_{{ plant.p_name }}" name="plant" value="{{ plant.id }}">
         <label for="plant_{{ plant.p_name }}">
@@ -24,6 +24,6 @@
         </label>
         <br>
         <input type="submit" value="Favorite">
-    </form>
+    </form>-->
 </div>
 {% endblock %}

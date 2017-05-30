@@ -6,7 +6,7 @@
     <ul>
         {% for plant in plants %}
         <!--<li><a href="{{ plant.slug }}">{{ plant.p_name }}</a></li>-->
-        <li><a href="{{ plant.get_absolute_url  }}">{{ plant.p_name }}</a></li>
+            <li><a href="{{ plant.get_absolute_url }}">{{ plant.p_name }}</a></li>
         {% endfor %}
     </ul>
 </div>

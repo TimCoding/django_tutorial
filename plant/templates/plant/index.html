@@ -1,15 +1,15 @@
 {% extends 'plant/base.html' %}
 {% block body %}
-    <div class="container">
-        {% if all_types %}
-        <h1>Here are all the plant types</h1>
-        <ul>
-            {% for type in all_types%}
-            <li><a href="{% url 'plant:detail' type_name=type.slug%}">{{ type.t_name }}</a></li>
-            {% endfor %}
-        </ul>
-        {% else %}
-            <h3>There are no plants to display</h3>
-        {% endif %}
-    </div>
+<div class="container">
+    {% if all_types %}
+    <h1>Here are all the plant types</h1>
+    <ul>
+        {% for type in all_types%}
+        <li><a href="{{ type.get_absolute_url }}">{{ type.t_name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <h3>There are no plants to display</h3>
+    {% endif %}
+</div>
 {% endblock %}
