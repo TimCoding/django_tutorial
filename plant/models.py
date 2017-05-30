@@ -7,7 +7,7 @@ class Type(models.Model):
     t_name = models.CharField(max_length=250)
     t_img = models.CharField(max_length=1000)
     t_description = models.CharField(max_length=1000)
-    slug = models.SlugField(default='')
+    slug = models.SlugField(default='', blank=True)
 
     def save(self, *args, **kwargs):
         super(Type, self).save(*args, **kwargs)

@@ -1,5 +1,5 @@
-from django.shortcuts import render, get_object_or_404
 from django.views import generic
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Type, Plant
 # Create your views here.
 
@@ -25,24 +25,6 @@ class TypeDetailView(generic.DetailView):
         context['plants'] = Type.objects.get(t_name=self.kwargs['slug']).plant_set.all()
         return context;
 
-# def detail(request, type_name):
-#     type = get_object_or_404(Type, t_name = type_name)
-#     #Assumption: If type exists then it must have a set of plants even if the set is empty
-#     type_plants = type.plant_set.all()
-#     context = {
-#         'type': type,
-#         'plants': type_plants,
-#     }
-#     return render(request, 'plant/detail.html', context)
-
-# def plant(request, type, plant_id, slug):
-#     #Checks to see if the type of plant is still correct
-#     selected_type = get_object_or_404(Type, t_name=type)
-#     #Actually selects plant to be used
-#     selected_plant = get_object_or_404(Plant, pk=plant_id)
-#     return render(request, 'plant/plant.html', {'plant': selected_plant})
-
-
 class PlantDetailView(generic.DetailView):
     #Expects pk from url
     model = Plant
@@ -50,3 +32,7 @@ class PlantDetailView(generic.DetailView):
     context_object_name = 'plant'
     #Name of actual template
     template_name = 'plant/plant.html'
+
+class TypeCreate(CreateView):
+    model = Type
+    fields = ['t_name', 't_img', 't_description']

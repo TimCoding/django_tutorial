@@ -14,4 +14,6 @@ urlpatterns = [
     # /plant/type/1-tacos
     url(r'^(?P<type>[a-z]+)/(?P<pk>[0-9]+)-(?P<name>[a-z]+)/$', views.PlantDetailView.as_view(), name='plant'),
 
+    #Adding type
+    url(r'^type/add/$', views.TypeCreate.as_view(), name='type-add'),
 ]
