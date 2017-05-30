@@ -44,19 +44,13 @@ class PlantCreate(CreateView):
     model = Plant
     fields = ['type', 'p_name', 'p_img', 'p_description', 'p_quantity']
 
-# class PlantDelete(DeleteView):
-#     model = Plant
-    
-#     def get_success_url(self, **kwargs):
-#         return reverse('plant:detail', self.slug)
-    
-#     def delete(self, request, *args, **kwargs):
-#         self.slug = self.get_object().type.slug
-#         return super(PlantDelete, self).delete(request, *args, **kwargs)
-
 class PlantDelete(DeleteView):
     model = Plant
 
+    #This piece of code is necessary because it allows us to go back to details page of type
+    #After deleting a plant
+    #We grab the type to go back to from the url using self.kwargs
+    #https://stackoverflow.com/questions/10631381/redirect-to-parent-after-deleting-an-object-with-deleteobject-generic-view
     def get_success_url(self, **kwargs):
         return reverse('plant:detail', kwargs={'slug':self.kwargs['type']})
     
