@@ -9,8 +9,12 @@
     <h3>Quantity:</h3>
     <p>{{ plant.p_quantity }}</p>
 
-    {% if error_message %}
-        <p><strong>{{ error_message }}</strong></p>
-    {% endif %}
+    <form action="{{ plant.get_delete_url }}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+            <span class="glyphicon glyphicon-trash"></span>
+        </button>
+    </form>
+
 </div>
 {% endblock %}

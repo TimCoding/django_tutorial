@@ -1,5 +1,6 @@
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy, reverse
 from .models import Type, Plant
 # Create your views here.
 
@@ -37,6 +38,25 @@ class TypeCreate(CreateView):
     model = Type
     fields = ['t_name', 't_img', 't_description']
 
+#Automatically detects plant-form.html just make sure to set up url
+#html file should follow <Model Name>_form.html format
 class PlantCreate(CreateView):
     model = Plant
     fields = ['type', 'p_name', 'p_img', 'p_description', 'p_quantity']
+
+# class PlantDelete(DeleteView):
+#     model = Plant
+    
+#     def get_success_url(self, **kwargs):
+#         return reverse('plant:detail', self.slug)
+    
+#     def delete(self, request, *args, **kwargs):
+#         self.slug = self.get_object().type.slug
+#         return super(PlantDelete, self).delete(request, *args, **kwargs)
+
+class PlantDelete(DeleteView):
+    model = Plant
+
+    def get_success_url(self, **kwargs):
+        return reverse('plant:detail', kwargs={'slug':self.kwargs['type']})
+    

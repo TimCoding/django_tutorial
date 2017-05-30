@@ -43,4 +43,7 @@ class Plant(models.Model):
         #Gacky solution to make the name of the type lower case
         return reverse("plant:plant", kwargs = {'type': str(self.type).lower(), 'pk': str(self.id), 'name': str(self.slug)})
 
+    def get_delete_url(self):
+        return reverse("plant:plant-delete", kwargs = {'type': str(self.type).lower(), 'pk': str(self.id), 'name': str(self.slug)})
+
 
