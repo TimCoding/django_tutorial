@@ -16,4 +16,7 @@ urlpatterns = [
 
     #Adding type
     url(r'^type/add/$', views.TypeCreate.as_view(), name='type-add'),
+
+    #Adding plant
+    url(r'^plant/add/$', views.PlantCreate.as_view(), name='plant-add'),
 ]

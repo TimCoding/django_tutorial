@@ -40,6 +40,7 @@ class Plant(models.Model):
         return self.p_name
 
     def get_absolute_url(self):
-        return reverse("plant:plant", kwargs = {'type': str(self.type), 'pk': str(self.id), 'name': str(self.slug)})
+        #Gacky solution to make the name of the type lower case
+        return reverse("plant:plant", kwargs = {'type': str(self.type).lower(), 'pk': str(self.id), 'name': str(self.slug)})
 
 

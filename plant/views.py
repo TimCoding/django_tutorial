@@ -36,3 +36,7 @@ class PlantDetailView(generic.DetailView):
 class TypeCreate(CreateView):
     model = Type
     fields = ['t_name', 't_img', 't_description']
+
+class PlantCreate(CreateView):
+    model = Plant
+    fields = ['type', 'p_name', 'p_img', 'p_description', 'p_quantity']
