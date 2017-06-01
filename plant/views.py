@@ -1,7 +1,12 @@
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
+from django.shortcuts import render, redirect
+#login gives them session id so they don't have to authenticate every time
+from django.contrib.auth import authenticate, login
+from django.views.generic import View
 from .models import Type, Plant
+from .forms import UserForm
 # Create your views here.
 
 class TypeListView(generic.ListView):
@@ -66,4 +71,39 @@ class PlantUpdate(UpdateView):
     model = Plant
     fields = ['type', 'p_name', 'p_img', 'p_description', 'p_quantity']
 
-    
+class UserFormView(View):
+    form_class = UserForm
+    #html file that form is gunna be included in
+    template_name = 'plant/registration_form.html'
+
+    #display blank form
+    def get(self, request):
+        #Use default user form defined above in the UserFormView class
+        #No need to pass in context
+        form = self.form_class(None)
+        return render(request, self.template_name, {'form': form})
+
+    #When user submits form process it
+    def post(self, request):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            #Creates object from the form but it doesn't save it to db yet
+            user = form.save(commit=False)
+
+            # cleaned and normalized data (data that is formatted correctly)
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            #Manner in which we change user passwords
+            user.set_password(password)
+            #Adds user to db
+            user.save()
+
+            #returns User objects if credentials are correct
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return redirect('plant:index')
+            return render(request, self.template_name, {'form': form})

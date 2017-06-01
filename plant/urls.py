@@ -7,11 +7,14 @@ urlpatterns = [
     # /plant/
     url(r'^$', views.TypeListView.as_view(), name='index'),
     
+    #Registering
+    url(r'^register/$', views.UserFormView.as_view(), name='register'),
+
     # /plant/perennials/
     # Note for class based views make sure you use pk
     url(r'^(?P<slug>[a-z]+)/$', views.TypeDetailView.as_view(), name='detail'),
 
-    # /plant/type/1-tacos
+    # /plant/type/1-tacosß
     url(r'^(?P<type>[a-z]+)/(?P<pk>[0-9]+)-(?P<name>[a-z]+)/$', views.PlantDetailView.as_view(), name='plant'),
 
     #URL that allows us to delete types
