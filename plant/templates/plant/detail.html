@@ -9,5 +9,11 @@
             <li><a href="{{ plant.get_absolute_url }}">{{ plant.p_name }}</a></li>
         {% endfor %}
     </ul>
+    <form action="{% url 'plant:type-delete' type.slug %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+            <span class="glyphicon glyphicon-trash"></span>
+        </button>
+    </form>
 </div>
 {% endblock %}

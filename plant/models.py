@@ -9,6 +9,7 @@ class Type(models.Model):
     t_description = models.CharField(max_length=1000)
     slug = models.SlugField(default='', blank=True)
 
+    #Used to generate a slug when saving for first time
     def save(self, *args, **kwargs):
         super(Type, self).save(*args, **kwargs)
         if not self.slug:
@@ -30,6 +31,7 @@ class Plant(models.Model):
     p_favorite = models.BooleanField(default=False)
     slug = models.SlugField(default='', blank=True)
 
+    #Used to generate a slug when saving for the first time
     def save(self, *args, **kwargs):
         super(Plant, self).save(*args, **kwargs)
         if not self.slug:

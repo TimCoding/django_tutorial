@@ -38,6 +38,13 @@ class TypeCreate(CreateView):
     model = Type
     fields = ['t_name', 't_img', 't_description']
 
+class TypeDelete(DeleteView):
+    model = Type
+    #redirects to details page when finished deleting
+    success_url = reverse_lazy('plant:index')
+
+
+
 #Automatically detects plant-form.html just make sure to set up url
 #html file should follow <Model Name>_form.html format
 class PlantCreate(CreateView):
@@ -46,11 +53,12 @@ class PlantCreate(CreateView):
 
 class PlantDelete(DeleteView):
     model = Plant
-
     #This piece of code is necessary because it allows us to go back to details page of type
     #After deleting a plant
     #We grab the type to go back to from the url using self.kwargs
     #https://stackoverflow.com/questions/10631381/redirect-to-parent-after-deleting-an-object-with-deleteobject-generic-view
     def get_success_url(self, **kwargs):
         return reverse('plant:detail', kwargs={'slug':self.kwargs['type']})
+
+
     
