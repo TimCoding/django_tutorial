@@ -48,4 +48,7 @@ class Plant(models.Model):
     def get_delete_url(self):
         return reverse("plant:plant-delete", kwargs = {'type': str(self.type).lower(), 'pk': str(self.id), 'name': str(self.slug)})
 
+    def get_update_url(self):
+        return reverse("plant:plant-update", kwargs = {'type': str(self.type).lower(), 'pk': str(self.id), 'name': str(self.slug)})
+
 

@@ -15,5 +15,11 @@
             <span class="glyphicon glyphicon-trash"></span>
         </button>
     </form>
+    <form action="{% url 'plant:type-update' type.slug %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </form>
 </div>
 {% endblock %}

@@ -43,7 +43,9 @@ class TypeDelete(DeleteView):
     #redirects to details page when finished deleting
     success_url = reverse_lazy('plant:index')
 
-
+class TypeUpdate(UpdateView):
+    model = Type
+    fields = ['t_name', 't_img', 't_description']
 
 #Automatically detects plant-form.html just make sure to set up url
 #html file should follow <Model Name>_form.html format
@@ -60,5 +62,8 @@ class PlantDelete(DeleteView):
     def get_success_url(self, **kwargs):
         return reverse('plant:detail', kwargs={'slug':self.kwargs['type']})
 
+class PlantUpdate(UpdateView):
+    model = Plant
+    fields = ['type', 'p_name', 'p_img', 'p_description', 'p_quantity']
 
     

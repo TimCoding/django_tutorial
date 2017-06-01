@@ -18,9 +18,17 @@ urlpatterns = [
     # /plant/<type>/delete
     url(r'^(?P<slug>[a-z]+)/delete/$', views.TypeDelete.as_view(), name='type-delete'),
 
+    #URL that allows us to update types
+    # /plant/<type>/update
+    url(r'^(?P<slug>[a-z]+)/update/$', views.TypeUpdate.as_view(), name='type-update'),
+
     #URL that allows us to delete individual plants
-     # /plant/type/1-tacos/delete
+    # /plant/type/1-tacos/delete
     url(r'^(?P<type>[a-z]+)/(?P<pk>[0-9]+)-(?P<name>[a-z]+)/delete/$', views.PlantDelete.as_view(), name='plant-delete'),
+
+    #URL that allows us to update individual plants
+    # /plant/type/1-tacos/update
+    url(r'^(?P<type>[a-z]+)/(?P<pk>[0-9]+)-(?P<name>[a-z]+)/update/$', views.PlantUpdate.as_view(), name='plant-update'),
 
     #URL for type form
     url(r'^type/add/$', views.TypeCreate.as_view(), name='type-add'),
