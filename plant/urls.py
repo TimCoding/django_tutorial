@@ -7,6 +7,12 @@ urlpatterns = [
     # /plant/
     url(r'^$', views.TypeListView.as_view(), name='index'),
     
+    #Login Action
+    url(r'^login/$', views.action_login, name='action_login'),
+
+    #Login Page
+    url(r'^login_page/$', views.LoginPage.as_view(), name='login-page'),
+
     #Registering
     url(r'^register/$', views.UserFormView.as_view(), name='register'),
 

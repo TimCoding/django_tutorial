@@ -1,5 +1,6 @@
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import render, redirect
 #login gives them session id so they don't have to authenticate every time
@@ -107,3 +108,19 @@ class UserFormView(View):
                     login(request, user)
                     return redirect('plant:index')
             return render(request, self.template_name, {'form': form})
+
+#View for login page
+class LoginPage(TemplateView):
+    template_name = "plant/login.html"
+
+#Login
+def action_login(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('plant:index')
+    return render(request, "plant/login.html")
