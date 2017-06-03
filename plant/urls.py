@@ -10,6 +10,9 @@ urlpatterns = [
     #Login Action
     url(r'^login/$', views.action_login, name='action_login'),
 
+    #Logout Action
+    url(r'^logout/$', views.action_logout, name='action_logout'),
+
     #Login Page
     url(r'^login_page/$', views.LoginPage.as_view(), name='login-page'),
 

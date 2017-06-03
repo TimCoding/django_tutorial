@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import render, redirect
 #login gives them session id so they don't have to authenticate every time
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
 from .models import Type, Plant
 from .forms import UserForm
@@ -124,3 +124,7 @@ def action_login(request):
                 login(request, user)
                 return redirect('plant:index')
     return render(request, "plant/login.html")
+
+def action_logout(request):
+    logout(request)
+    return redirect('plant:login-page')
