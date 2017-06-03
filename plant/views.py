@@ -53,7 +53,11 @@ class PlantDetailView(generic.DetailView):
 class TypeCreate(CreateView):
     model = Type
     fields = ['t_name', 't_img', 't_description']
-        
+    
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.users = self.request.user
+        return super(TypeCreate, self).form_valid(form)
 
 @method_decorator(login_required, name='dispatch')
 class TypeDelete(DeleteView):
