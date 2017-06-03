@@ -5,11 +5,15 @@ from django.urls import reverse_lazy, reverse
 from django.shortcuts import render, redirect
 #login gives them session id so they don't have to authenticate every time
 from django.contrib.auth import authenticate, login, logout
+#Added to ensure each page requires you to login
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.views.generic import View
 from .models import Type, Plant
 from .forms import UserForm
 # Create your views here.
 
+@method_decorator(login_required, name='dispatch')
 class TypeListView(generic.ListView):
     model = Type
     #Name which will be used in your templates to retrieve objects

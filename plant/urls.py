@@ -1,11 +1,12 @@
 from django.conf.urls import url
+from django.contrib.auth.decorators import login_required
 from . import views
 
 app_name = 'plant'
 
 urlpatterns = [
     # /plant/
-    url(r'^$', views.TypeListView.as_view(), name='index'),
+    url(r'^$', login_required(views.TypeListView.as_view()), name='index'),
     
     #Login Action
     url(r'^login/$', views.action_login, name='action_login'),
