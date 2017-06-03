@@ -1,9 +1,12 @@
+from django.conf import settings
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.core.urlresolvers import reverse
 
+
 # Create your models here.
 class Type(models.Model):
+    users = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     t_name = models.CharField(max_length=250)
     t_img = models.CharField(max_length=1000)
     t_description = models.CharField(max_length=1000)

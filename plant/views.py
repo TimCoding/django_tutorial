@@ -15,12 +15,16 @@ from .forms import UserForm
 
 @method_decorator(login_required, name='dispatch')
 class TypeListView(generic.ListView):
-    model = Type
     #Name which will be used in your templates to retrieve objects
     context_object_name = 'all_types'
     #Name of your actual template
     template_name = 'plant/index.html'
 
+    #Necessary to filter out types available to a user
+    def get_queryset(self):
+        return Type.objects.filter(users = self.request.user)
+
+@method_decorator(login_required, name='dispatch')
 class TypeDetailView(generic.DetailView):
     #Expects pk from url
     model = Type
@@ -36,6 +40,7 @@ class TypeDetailView(generic.DetailView):
         context['plants'] = Type.objects.get(t_name=self.kwargs['slug']).plant_set.all()
         return context;
 
+@method_decorator(login_required, name='dispatch')
 class PlantDetailView(generic.DetailView):
     #Expects pk from url
     model = Plant
@@ -44,25 +49,31 @@ class PlantDetailView(generic.DetailView):
     #Name of actual template
     template_name = 'plant/plant.html'
 
+@method_decorator(login_required, name='dispatch')
 class TypeCreate(CreateView):
     model = Type
     fields = ['t_name', 't_img', 't_description']
+        
 
+@method_decorator(login_required, name='dispatch')
 class TypeDelete(DeleteView):
     model = Type
     #redirects to details page when finished deleting
     success_url = reverse_lazy('plant:index')
 
+@method_decorator(login_required, name='dispatch')
 class TypeUpdate(UpdateView):
     model = Type
     fields = ['t_name', 't_img', 't_description']
 
 #Automatically detects plant-form.html just make sure to set up url
 #html file should follow <Model Name>_form.html format
+@method_decorator(login_required, name='dispatch')
 class PlantCreate(CreateView):
     model = Plant
     fields = ['type', 'p_name', 'p_img', 'p_description', 'p_quantity']
 
+@method_decorator(login_required, name='dispatch')
 class PlantDelete(DeleteView):
     model = Plant
     #This piece of code is necessary because it allows us to go back to details page of type
@@ -72,6 +83,7 @@ class PlantDelete(DeleteView):
     def get_success_url(self, **kwargs):
         return reverse('plant:detail', kwargs={'slug':self.kwargs['type']})
 
+@method_decorator(login_required, name='dispatch')
 class PlantUpdate(UpdateView):
     model = Plant
     fields = ['type', 'p_name', 'p_img', 'p_description', 'p_quantity']
